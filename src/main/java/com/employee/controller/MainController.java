@@ -2,6 +2,8 @@ package com.employee.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,34 +22,50 @@ import com.employee.service.EmployeeService;
 @RequestMapping("employee")
 public class MainController {
 	
+	Logger logger = LogManager.getLogger(MainController.class);
+	
 	@Autowired
 	EmployeeService es;
 	
 	@Autowired
 	DepartmentService ds;
 	
+	 @RequestMapping("log")
+	 public String index() {
+	        logger.trace("A TRACE Message");
+	        logger.debug("A DEBUG Message");
+	        logger.info("An INFO Message");
+	        logger.warn("A WARN Message");
+	        logger.error("An ERROR Message");
+
+	        return "Howdy! Check out the Logs to see the output...";
+	    }
+	 
 	@PostMapping("createemp")
 	public String createEmp(@RequestBody Employee e)
 	{
+		 logger.trace(e);
 		return es.createEmp(e);
 	}
 	
 	@PostMapping("createdept")
 	public String createDept(@RequestBody Department d)
 	{
-		System.out.println(d);
+		logger.trace(d);
 		return ds.AddDept(d);
 	}
 	
 	@GetMapping("getEmp/{id}")
 	public String getEmp(@PathVariable int id)
 	{
+		logger.trace(id);
 		return ds.getEmployees(id);
 	}
 	
 	@PatchMapping("addEmp/{empid}/{deptid}")
 	public String addEmp(@PathVariable int empid,@PathVariable int deptid)
 	{
+		logger.trace("empid = "+empid+" deptid = "+deptid );
 		return ds.AddEmp(empid, deptid);
 	}
 	

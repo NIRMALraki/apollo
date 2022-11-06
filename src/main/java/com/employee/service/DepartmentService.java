@@ -3,11 +3,14 @@ package com.employee.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.employee.bean.Department;
 import com.employee.bean.Employee;
+import com.employee.controller.MainController;
 import com.employee.repository.DepartmentRepository;
 import com.employee.repository.EmployeeRepository;
 
@@ -20,9 +23,17 @@ public class DepartmentService {
 	@Autowired
 	EmployeeRepository er;
 	
+	Logger logger = LogManager.getLogger(DepartmentService.class);
+	
 	public String getEmployees(int id)
 	{
-		return dr.findById(id).get().getEmployee().toString();
+		try {
+			return dr.findById(id).get().getEmployee().toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error(e.getMessage());
+			return "Department not found";
+		}
 	}
 	
 	public String AddEmp(int empid,int deptid)
@@ -36,6 +47,7 @@ public class DepartmentService {
 			er.saveAndFlush(result.get());
 			return "Employee added";
 		}
+		logger.warn("invalid employeeid");
 		return "employee not found";
 	}
 	
@@ -46,7 +58,9 @@ public class DepartmentService {
 			return "Department Created";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.error(e.getMessage());
 			return "unsucessfull";
+			
 		}
 		
 	}
