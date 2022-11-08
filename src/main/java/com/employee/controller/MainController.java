@@ -1,7 +1,5 @@
 package com.employee.controller;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import com.employee.service.DepartmentService;
 import com.employee.service.EmployeeService;
 
 @RestController
-@RequestMapping("employee")
+@RequestMapping("employees")
 public class MainController {
 	
 	Logger logger = LogManager.getLogger(MainController.class);
@@ -31,14 +29,14 @@ public class MainController {
 	DepartmentService ds;
 	
 	 
-	@PostMapping("createemp")
+	@PostMapping("employee")
 	public String createEmp(@RequestBody Employee e)
 	{
 		 logger.trace(e);
 		return es.createEmp(e);
 	}
 	
-	@PostMapping("createdept")
+	@PostMapping("department")
 	public String createDept(@RequestBody Department d)
 	{
 		logger.trace(d);

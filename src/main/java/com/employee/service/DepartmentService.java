@@ -1,6 +1,5 @@
 package com.employee.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.employee.bean.Department;
 import com.employee.bean.Employee;
-import com.employee.controller.MainController;
+import com.employee.custom.exception.EmptyInputException;
 import com.employee.repository.DepartmentRepository;
 import com.employee.repository.EmployeeRepository;
 
@@ -27,13 +26,16 @@ public class DepartmentService {
 	
 	public String getEmployees(int id)
 	{
-		try {
-			return dr.findById(id).get().getEmployee().toString();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			logger.error(e.getMessage());
-			return "Department not found";
-		}
+//		try {
+//			return dr.findById(id).get().getEmployee().toString();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			logger.error(e.getMessage());
+//			return "Department not found";
+//		}
+		
+		return dr.findById(id).get().getEmployee().toString();
+		
 	}
 	
 	public String AddEmp(int empid,int deptid)
@@ -53,14 +55,23 @@ public class DepartmentService {
 	
 	public String AddDept(Department d)
 	{
-		try {
+//		try {
+//			dr.save(d);
+//			return "Department Created";
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			logger.error(e.getMessage());
+//			return "unsucessfull";
+//			
+//		}
+		if(d.getDname().equals(null)||d.getDname().isEmpty())
+		{
+			throw new EmptyInputException("601","Department name is not entered");
+		}
+		else
+		{
 			dr.save(d);
-			return "Department Created";
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			logger.error(e.getMessage());
-			return "unsucessfull";
-			
+			return "saved";
 		}
 		
 	}

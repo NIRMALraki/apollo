@@ -15,6 +15,7 @@ public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int d_id;
+	
 	private String dname;
 	@OneToMany(mappedBy = "dept")
 	private List<Employee> employee= new ArrayList<Employee>();
