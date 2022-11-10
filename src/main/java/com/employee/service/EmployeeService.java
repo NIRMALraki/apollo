@@ -1,5 +1,7 @@
 package com.employee.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,15 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository er;
 	
+	Logger logger = LogManager.getLogger(DepartmentService.class);
+
 	
 	public String createEmp(Employee e)
 	{
 		if(e.getEname().equals(null)||e.getEname().isEmpty())
 		{
+			logger.error("Employee name is not entered");
+
 			throw new EmptyInputException("602","Employee name is not entered");
 		}
 			er.save(e);

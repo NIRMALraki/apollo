@@ -66,6 +66,7 @@ public class DepartmentService {
 //		}
 		if(d.getDname().equals(null)||d.getDname().isEmpty())
 		{
+			logger.error("Department name is not entered");
 			throw new EmptyInputException("601","Department name is not entered");
 		}
 		else
