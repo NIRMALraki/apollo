@@ -1,8 +1,11 @@
 package com.employee.controller;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +47,7 @@ public class MainController {
 	}
 	
 	@GetMapping("getEmp/{id}")
-	public String getEmp(@PathVariable int id)
+	public List<Employee> getEmp(@PathVariable int id)
 	{
 		logger.trace(id);
 		return ds.getEmployees(id);
@@ -57,8 +60,8 @@ public class MainController {
 		return ds.AddEmp(empid, deptid);
 	}
 	
-	@GetMapping("emp/{id}")
-	public String emp(@PathVariable int id)
+	@GetMapping(value="emp/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Employee emp(@PathVariable int id)
 	{
 		return es.getEmp(id);
 	}

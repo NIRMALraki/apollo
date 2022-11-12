@@ -9,7 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+@JsonIgnoreType
 public class Department {
 	
 	@Id
@@ -17,7 +22,9 @@ public class Department {
 	private int d_id;
 	
 	private String dname;
+	
 	@OneToMany(mappedBy = "dept")
+	@JsonManagedReference
 	private List<Employee> employee= new ArrayList<Employee>();
 	
 	public int getD_id() {

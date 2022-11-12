@@ -8,8 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
+@JsonIgnoreProperties
+
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +24,7 @@ public class Employee {
 	
 	@ManyToOne
 	@JoinColumn(name = "d_id")
+    @JsonBackReference
 	private Department dept;
 
 	public int getEid() {
@@ -55,7 +61,7 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [eid=" + eid + ", ename=" + ename + ", elocation=" + elocation  + "]";
+		return "Employee [eid=" + eid + ", ename=" + ename + ", elocation=" + elocation + ", dept=" + dept + "]";
 	}
 	
 

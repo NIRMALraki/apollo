@@ -31,7 +31,7 @@ public class EmployeeService {
 		
 	}
 	
-	public String getEmp(int id)
+	public Employee getEmp(int id)
 	{
 //		Optional<Employee> result = er.findById(id);
 //		if(result.isPresent())
@@ -40,7 +40,7 @@ public class EmployeeService {
 //		}
 //		
 //		return "Employee not found";
-		return er.findById(id).get().toString();
+		return er.findById(id).get();
 	}
 
 }

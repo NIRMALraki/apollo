@@ -1,5 +1,6 @@
 package com.employee.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +25,7 @@ public class DepartmentService {
 	
 	Logger logger = LogManager.getLogger(DepartmentService.class);
 	
-	public String getEmployees(int id)
+	public List<Employee> getEmployees(int id)
 	{
 //		try {
 //			return dr.findById(id).get().getEmployee().toString();
@@ -34,7 +35,7 @@ public class DepartmentService {
 //			return "Department not found";
 //		}
 		
-		return dr.findById(id).get().getEmployee().toString();
+		return dr.findById(id).get().getEmployee();
 		
 	}
 	
